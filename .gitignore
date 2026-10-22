@@ -1,0 +1,41 @@
+# Dependencies and build output
+node_modules/
+dist/
+*.tsbuildinfo
+coverage/
+
+# Secrets and Apple signing material: never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.cer
+*.csr
+certs/
+tests/.certs/
+
+# Generated web bundles
+web/staff/staff.bundle.js
+
+# Local database and test data
+.pgdata/
+tests/.pgdata/
+
+# Logs and editor/OS files
+*.log
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+.vscode/
+.idea/
+
+# Spec Kit (local planning workspace, kept out of the repo)
+.specify/
+specs/
+.claude/skills/speckit-*/
+
+# Private project notes
+brief.md

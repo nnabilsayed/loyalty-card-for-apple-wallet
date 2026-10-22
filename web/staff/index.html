@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Staff</title>
+    <link rel="stylesheet" href="/shared.css" />
+    <link rel="stylesheet" href="staff.css" />
+  </head>
+  <body>
+    <main>
+      <header id="bar" class="bar hidden">
+        <span id="who"></span>
+        <button id="signout" type="button" class="secondary small">Sign out</button>
+      </header>
+
+      <div id="status" class="message hidden" role="status" aria-live="polite"></div>
+
+      <!-- Sign in -->
+      <section id="signin" class="hidden">
+        <h1>Staff sign-in</h1>
+        <form id="signin-form" novalidate>
+          <div class="field">
+            <label for="pin">Your PIN</label>
+            <input id="pin" name="pin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" required />
+          </div>
+          <button type="submit">Sign in</button>
+        </form>
+      </section>
+
+      <!-- Find a card -->
+      <section id="find" class="hidden">
+        <h1>Scan a card</h1>
+        <div id="camera" class="camera hidden">
+          <video id="video" playsinline muted></video>
+          <button id="stop-scan" type="button" class="secondary">Stop camera</button>
+        </div>
+        <button id="start-scan" type="button">Scan with camera</button>
+
+        <form id="manual-form" class="manual" novalidate>
+          <label for="code">Or type the card code</label>
+          <div class="row">
+            <input id="code" name="code" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" />
+            <button type="submit" class="secondary">Look up</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- A card -->
+      <section id="card" class="hidden">
+        <div class="card">
+          <p class="phone" id="card-phone"></p>
+          <p class="count" id="card-count"></p>
+          <p class="earned hidden" id="card-earned">Free drink earned</p>
+        </div>
+
+        <div id="confirm" class="message info hidden">
+          <p id="confirm-text"></p>
+          <button id="confirm-yes" type="button">Stamp anyway</button>
+          <button id="confirm-no" type="button" class="secondary">Cancel</button>
+        </div>
+
+        <div id="actions">
+          <button id="stamp" type="button" class="big">+1 cup</button>
+          <button id="redeem" type="button" class="big hidden">Redeem free drink</button>
+        </div>
+        <button id="undo" type="button" class="secondary hidden">Undo last stamp</button>
+        <button id="next" type="button" class="secondary">Scan next card</button>
+      </section>
+    </main>
+    <script type="module" src="staff.bundle.js"></script>
+  </body>
+</html>

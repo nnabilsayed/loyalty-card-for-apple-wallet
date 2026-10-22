@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Owner dashboard</title>
+    <link rel="stylesheet" href="/shared.css" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <main>
+      <header id="bar" class="bar hidden">
+        <span id="who"></span>
+        <button id="signout" type="button" class="secondary small">Sign out</button>
+      </header>
+
+      <div id="status" class="message hidden" role="status" aria-live="polite"></div>
+
+      <!-- Sign in -->
+      <section id="signin" class="hidden">
+        <h1>Owner sign-in</h1>
+        <form id="signin-form" novalidate>
+          <div class="field">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" autocomplete="username" required />
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required />
+          </div>
+          <button type="submit">Sign in</button>
+        </form>
+      </section>
+
+      <!-- Dashboard -->
+      <div id="dashboard" class="hidden">
+        <h1>Dashboard</h1>
+
+        <section class="card" aria-labelledby="goal-title">
+          <h2 id="goal-title">Reward goal</h2>
+          <p>How many cups a customer collects for a free drink. The change applies to every card at once, and anyone who already earned a free drink keeps it.</p>
+          <form id="goal-form" novalidate>
+            <div class="field">
+              <label for="goal">Cups for a free drink</label>
+              <input id="goal" name="goal" type="number" inputmode="numeric" min="1" step="1" required />
+            </div>
+            <button type="submit">Save goal</button>
+          </form>
+        </section>
+
+        <section class="card" aria-labelledby="baristas-title">
+          <h2 id="baristas-title">Baristas</h2>
+          <p>Each barista has their own 6-digit PIN for the staff app. The records show who stamped each card.</p>
+          <ul id="barista-list" class="barista-list"></ul>
+          <p id="barista-empty" class="hint hidden">No baristas yet. Add the first one below.</p>
+          <form id="barista-form" novalidate>
+            <h3>Add a barista</h3>
+            <div class="field">
+              <label for="b-name">Name</label>
+              <input id="b-name" type="text" autocomplete="off" maxlength="60" required />
+            </div>
+            <div class="field">
+              <label for="b-pin">6-digit PIN</label>
+              <input id="b-pin" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" required />
+              <p class="hint">Pick a PIN nobody else uses. It cannot be seen again after saving.</p>
+            </div>
+            <button type="submit">Add barista</button>
+          </form>
+        </section>
+
+        <section class="card" aria-labelledby="news-title">
+          <h2 id="news-title">Announcements</h2>
+          <p>A short message that appears on every customer's card, with a notification on their phone.</p>
+          <form id="news-form" novalidate>
+            <div class="field">
+              <label for="news-text">Message</label>
+              <textarea id="news-text" rows="3" maxlength="200" placeholder="Double stamps this Friday"></textarea>
+              <p class="hint"><span id="news-count">0</span> of 200 characters</p>
+            </div>
+            <button type="submit">Send to all cards</button>
+          </form>
+          <h3>Sent so far</h3>
+          <ul id="news-history" class="news-history"></ul>
+          <p id="news-empty" class="hint hidden">Nothing sent yet.</p>
+        </section>
+
+        <section class="card" aria-labelledby="customer-title">
+          <h2 id="customer-title">Find a customer</h2>
+          <p>Lost phone or deleted card? Look the customer up by phone number and issue a replacement. Their cups carry over and the old card stops working.</p>
+          <form id="customer-form" novalidate>
+            <div class="field">
+              <label for="c-phone">Phone number</label>
+              <input id="c-phone" type="tel" inputmode="tel" autocomplete="off" placeholder="010 1234 5678" />
+            </div>
+            <button type="submit" class="secondary">Find</button>
+          </form>
+          <div id="customer-result" class="hidden">
+            <h3 id="customer-phone"></h3>
+            <p id="customer-summary"></p>
+            <button id="reissue" type="button">Issue replacement card</button>
+            <div id="reissue-confirm" class="inline-form hidden">
+              <span>The old card stops working at once. Continue?</span>
+              <button id="reissue-yes" type="button" class="danger">Yes, replace it</button>
+              <button id="reissue-no" type="button" class="secondary">Cancel</button>
+            </div>
+            <div id="reissue-done" class="message ok hidden">
+              <p>Replacement ready. Send this link to the customer and ask them to open it on their iPhone:</p>
+              <p><a id="reissue-link" href="#"></a></p>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="records-title">
+          <h2 id="records-title">Records</h2>
+          <form id="filter-form" class="filters" novalidate>
+            <div class="field">
+              <label for="f-type">What happened</label>
+              <select id="f-type">
+                <option value="">Everything</option>
+                <option value="stamp">Stamps</option>
+                <option value="stamp_forced">Confirmed repeat stamps</option>
+                <option value="redeem">Free drinks redeemed</option>
+                <option value="undo">Undos</option>
+                <option value="goal_change">Goal changes</option>
+                <option value="announcement">Announcements</option>
+                <option value="card_issued">Cards issued</option>
+                <option value="card_reissued">Replacement cards</option>
+                <option value="barista_added">Baristas added</option>
+                <option value="barista_pin_changed">PIN changes</option>
+                <option value="barista_renamed">Barista renames</option>
+                <option value="barista_removed">Baristas removed</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-actor">Who</label>
+              <input id="f-actor" type="search" autocomplete="off" placeholder="Name" />
+            </div>
+            <div class="field">
+              <label for="f-from">From</label>
+              <input id="f-from" type="date" />
+            </div>
+            <div class="field">
+              <label for="f-to">To</label>
+              <input id="f-to" type="date" />
+            </div>
+            <button type="submit" class="secondary">Show records</button>
+          </form>
+          <div class="table-wrap">
+            <table id="records">
+              <thead>
+                <tr><th>When</th><th>What</th><th>Who</th><th>Card</th><th>Details</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <p id="records-empty" class="hint hidden">No records match.</p>
+        </section>
+      </div>
+    </main>
+    <script src="admin.js"></script>
+  </body>
+</html>

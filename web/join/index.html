@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Get your loyalty card</title>
+    <link rel="stylesheet" href="/shared.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Get your loyalty card</h1>
+      <p>Collect a cup with every drink. Add the card to Apple Wallet and it updates by itself.</p>
+
+      <form id="join-form" novalidate>
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="010 1234 5678" required />
+          <p class="hint">We use your number to find your card. Numbers from other countries: start with + and the country code.</p>
+        </div>
+
+        <p class="hint">By adding the card you agree to receive offers and news from the shop on the card.</p>
+
+        <div id="message" class="message hidden" role="alert" aria-live="polite"></div>
+
+        <button id="submit" type="submit">Get my card</button>
+      </form>
+
+      <div id="done" class="hidden">
+        <div class="message ok">Your card is ready.</div>
+        <a id="wallet-link" class="button" href="#">Add to Apple Wallet</a>
+        <p class="hint">Open this page on your iPhone to add the card to Wallet.</p>
+      </div>
+    </main>
+    <script src="join.js"></script>
+  </body>
+</html>
