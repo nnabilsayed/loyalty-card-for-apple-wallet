@@ -1,6 +1,7 @@
 {
   "name": "loyalty-card-for-apple-wallet",
   "version": "0.1.0",
+  "license": "MIT",
   "private": true,
   "description": "Digital stamp card for a coffee shop, delivered through Apple Wallet",
   "type": "module",
